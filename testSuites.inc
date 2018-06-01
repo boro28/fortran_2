@@ -1,0 +1,1 @@
+ADD_TEST_SUITE(matrix_multiplication_tests_suite)

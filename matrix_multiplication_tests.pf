@@ -1,0 +1,101 @@
+@test
+subroutine one_on_one_test()
+    use matrix
+    use pfunit_mod
+    implicit none
+    real (kind=8) :: a(1,1), b(1,1), out(1,1)
+    integer :: status
+    a = 5.d0
+    b = 6.d0
+    call mm(a, b, out, status)
+    @assertEqual(status,0)
+    @assertEqual(30,out(1,1))
+
+end subroutine
+
+@test
+subroutine one_on_N_test()
+    use matrix
+    use pfunit_mod
+    implicit none
+    real (kind=8) :: a(1,888), b(888,1), out(1,1)
+    integer :: status
+    a = 5.d0
+    b = 6.d0
+    call mm(a, b, out, status)
+    @assertEqual(status,0)
+    @assertEqual(30*888,out(1,1))
+
+end subroutine
+
+@test
+subroutine N_on_one_test()
+    use matrix
+    use pfunit_mod
+    implicit none
+    real (kind=8) :: a(777,1), b(1,777), out(777,777),exp_res(777,777)
+    integer :: status
+    a = 5.d0
+    b = 6.d0
+    exp_res = 30.d0
+    call mm(a, b, out, status)
+    @assertEqual(status,0)
+    @assertEqual(exp_res,out)
+
+end subroutine
+
+@test
+subroutine big_matrix_test()
+    use matrix
+    use pfunit_mod
+    implicit none
+    real (kind=8) :: a(333,4444), b(4444,5555), out(333,5555),exp_res(333,5555)
+    integer :: status
+    a = 1.d0
+    b = 1.5
+    exp_res = matmul(a,b)
+    call mm(a, b, out, status)
+    @assertEqual(status,0)
+    @assertEqual(exp_res,out)
+
+end subroutine
+
+@test
+subroutine invalid_matrix_test()
+    use matrix
+    use pfunit_mod
+    implicit none
+    real (kind=8) :: a(10,10), b(1,1), out(10,1)
+    integer :: status
+    a = 1.d0
+    b = 3.d0
+    call mm(a, b, out, status)
+    @assertEqual(status,1)
+end subroutine
+
+@test
+subroutine regular_matrix_test()
+    use matrix
+    use pfunit_mod
+    implicit none
+    real (kind=8) :: a(5,3), b(3,6), out(5,6), exp_res(5,6)
+    integer :: status , i
+	do i = 1 , 3
+        a(:,i) = i
+	    b(i,:) = i
+    end do
+
+    exp_res = matmul(a,b)
+    call mm(a, b, out, status)
+    @assertEqual(status,0)
+    @assertEqual(exp_res,out)
+end subroutine
+
+
+
+
+
+
+
+
+
