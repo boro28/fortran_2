@@ -32,7 +32,7 @@ program fortra_2project! pierwsza macierz
     real (kind = 8), allocatable :: second(:, :) ! druga macierz
     real (kind = 8), allocatable :: multiply(:, :) ! macierz wynikowa
     integer (kind = 4) :: status ! kod błędu, 0 gdy OK
-    integer(kind = 4) :: iclock, i
+    integer(kind = 4) :: iclock, i,j,k
     integer(kind = 4), dimension(3) :: AllocateStatus, DeAllocateStatus
     real (kind = 8), dimension(5) :: dtime
 
@@ -47,8 +47,12 @@ program fortra_2project! pierwsza macierz
             STOP
         end if
 
-        first = 2
-        second = 3
+        do k = 1, i
+            do j = 1, i
+                first(k, j) = k + j
+                second(k, j) = k - j
+            end do
+        end do
 
         call start_clock(iclock) !starts the clock
         call mm(first, second, multiply, status)
