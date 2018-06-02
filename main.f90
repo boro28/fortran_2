@@ -74,7 +74,7 @@ program fortra_2project! pierwsza macierz
         multiply = matmul(first, second)
         call stop_clock(dtime(5), iclock) !end the clock
 
-        write(2, *) "mm:", dtime(1), "dot:", dtime(2), "chunk:", dtime(3), "dot_and_chunk:", dtime(4), "matmul:", dtime(5)
+        write(2, *) "size:",i ,"mm:", dtime(1), "dot:", dtime(2), "chunk:", dtime(3), "dot_and_chunk:", dtime(4), "matmul:", dtime(5)
 
         deallocate(first, STAT = DeAllocateStatus(1))
         deallocate(second, STAT = DeAllocateStatus(2))
