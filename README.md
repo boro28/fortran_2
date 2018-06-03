@@ -1,13 +1,13 @@
-#Fortran2
+# Fortran2
 Project was written using ifort compilator.
 
-##Tests
+## Tests
 To run tests
 ```
 make test
 ./test
 ```
-##Results
+## Results
 To generate results.txt file
 ```
 make build
